@@ -92,7 +92,11 @@ const Results: React.FC<ResultsProps> = ({ data }) => {
           {data.matched_keywords.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {data.matched_keywords.map((keyword, index) => (
-                <Badge key={index} variant="outline" className="bg-success/10 text-success-foreground border-success/20">
+                <Badge 
+                  key={index} 
+                  variant="outline" 
+                  className="bg-success/20 text-success-foreground border-success/40 font-medium px-3 py-1 rounded-full hover:bg-success/30 transition-colors"
+                >
                   {keyword}
                 </Badge>
               ))}
@@ -117,7 +121,11 @@ const Results: React.FC<ResultsProps> = ({ data }) => {
           {data.missing_keywords.length > 0 ? (
             <div className="flex flex-wrap gap-2">
               {data.missing_keywords.map((keyword, index) => (
-                <Badge key={index} variant="outline" className="bg-warning/10 text-warning-foreground border-warning/20">
+                <Badge 
+                  key={index} 
+                  variant="outline" 
+                  className="bg-warning/20 text-warning-foreground border-warning/40 font-medium px-3 py-1 rounded-full hover:bg-warning/30 transition-colors"
+                >
                   {keyword}
                 </Badge>
               ))}
@@ -142,9 +150,12 @@ const Results: React.FC<ResultsProps> = ({ data }) => {
           {data.suggestions.length > 0 ? (
             <ul className="space-y-3">
               {data.suggestions.map((suggestion, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-primary mr-2">•</span>
-                  <span>{suggestion}</span>
+                <li 
+                  key={index} 
+                  className="flex items-start p-3 bg-secondary/10 rounded-lg hover:bg-secondary/20 transition-colors"
+                >
+                  <span className="text-primary mr-3 mt-1">•</span>
+                  <span className="flex-1">{suggestion}</span>
                 </li>
               ))}
             </ul>
