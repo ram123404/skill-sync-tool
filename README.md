@@ -1,73 +1,60 @@
-# Welcome to your Lovable project
 
-## Project info
+# SkillSync Resume Analyzer
 
-**URL**: https://lovable.dev/projects/6dbc139d-1493-4e09-b5d0-68177204f292
+A web application that analyzes resumes against job descriptions to help job seekers optimize their applications.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- Upload resume PDF
+- Enter job description
+- Get analysis of matching and missing keywords
+- Receive suggestions for resume improvement
 
-**Use Lovable**
+## Project Structure
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6dbc139d-1493-4e09-b5d0-68177204f292) and start prompting.
+- `/src` - React frontend
+- `/backend` - Python Flask backend for resume analysis
 
-Changes made via Lovable will be committed automatically to this repo.
+## Frontend Setup
 
-**Use your preferred IDE**
+1. Install dependencies:
+   ```
+   npm install
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2. Run the development server:
+   ```
+   npm run dev
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Backend Setup
 
-Follow these steps:
+1. Navigate to the backend directory:
+   ```
+   cd backend
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Install Python dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. Start the Python server:
+   ```
+   python app.py
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## How It Works
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+1. Upload your resume PDF
+2. Enter or paste a job description
+3. Click "Analyze Resume"
+4. View the analysis results showing:
+   - Matching keywords
+   - Missing keywords
+   - Customized suggestions
 
-**Edit a file directly in GitHub**
+## Technologies Used
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6dbc139d-1493-4e09-b5d0-68177204f292) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Frontend: React, TypeScript, Tailwind CSS, shadcn/ui
+- Backend: Python, Flask, NLTK, PyPDF2

@@ -10,6 +10,8 @@ import FileUpload from '@/components/FileUpload';
 import JobDescription from '@/components/JobDescription';
 import Results, { ResultsData } from '@/components/Results';
 
+const API_URL = 'http://localhost:5000'; // Python backend URL
+
 const Index = () => {
   const { toast } = useToast();
   const [resume, setResume] = useState<File | null>(null);
@@ -65,42 +67,45 @@ const Index = () => {
       }
     }, 100);
 
-    // This is a mock API call that would be replaced with a real backend call
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2500));
-      
-      // Mock response data for frontend testing
-      const mockResults: ResultsData = {
-        matched_keywords: [
-          "React.js", "JavaScript", "HTML", "CSS", "Responsive design", 
-          "Frontend", "UI", "Optimization"
-        ],
-        missing_keywords: [
-          "Tailwind CSS", "Redux", "RESTful APIs", "Context API", "Build pipelines"
-        ],
-        suggestions: [
-          "Highlight your experience with responsive design and CSS frameworks like Tailwind.",
-          "Include specific examples of React.js projects you've worked on.",
-          "Mention your experience with state management like Redux or Context API.",
-          "Add details about working with RESTful APIs in your projects.",
-          "Showcase your knowledge of modern frontend build pipelines."
-        ]
-      };
+      // Create form data for the API request
+      const formData = new FormData();
+      if (resume) {
+        formData.append('resume', resume);
+      }
+      formData.append('jobDescription', jobDescription);
+
+      // Call the Python backend API
+      const response = await fetch(`${API_URL}/analyze`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to analyze resume');
+      }
+
+      const data = await response.json();
       
       // Set the results
-      setResults(mockResults);
+      setResults({
+        matched_keywords: data.matched_keywords || [],
+        missing_keywords: data.missing_keywords || [],
+        suggestions: data.suggestions || [],
+      });
       
       toast({
         title: "Analysis Complete",
         description: "Your resume has been analyzed successfully!",
       });
     } catch (error) {
+      console.error('Analysis error:', error);
       setResults({
         matched_keywords: [],
         missing_keywords: [],
         suggestions: [],
-        error: "Failed to analyze your resume. Please try again later."
+        error: error instanceof Error ? error.message : "Failed to analyze your resume. Please try again later."
       });
       
       toast({
