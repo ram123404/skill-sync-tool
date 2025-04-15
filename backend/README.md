@@ -1,7 +1,16 @@
 
 # Resume Analyzer Backend
 
-This Python Flask backend provides resume analysis functionality for the SkillSync tool.
+This Python Flask backend provides comprehensive resume analysis functionality for the SkillSync tool.
+
+## Features
+
+- **Advanced PDF Text Extraction**: Reliably extracts text from various PDF resume formats
+- **Multi-Domain Keyword Analysis**: Identifies relevant keywords across different industry domains
+- **Experience & Education Matching**: Evaluates if your resume meets job requirements
+- **Personalized Suggestions**: Provides tailored recommendations to improve your resume
+- **Section Analysis**: Identifies missing resume sections important for your application
+- **Semantic Matching**: Uses NLP to understand context and synonyms, not just exact matches
 
 ## Setup
 
@@ -10,7 +19,11 @@ This Python Flask backend provides resume analysis functionality for the SkillSy
    ```
    pip install -r requirements.txt
    ```
-3. Run the server:
+3. Download required NLP models (automatic on first run):
+   ```
+   python -m spacy download en_core_web_sm
+   ```
+4. Run the server:
    ```
    python app.py
    ```
@@ -32,6 +45,27 @@ Analyzes a resume against a job description
 {
   "matched_keywords": ["keyword1", "keyword2"],
   "missing_keywords": ["keyword3", "keyword4"],
-  "suggestions": ["suggestion1", "suggestion2"]
+  "match_score": 75,
+  "suggestions": ["suggestion1", "suggestion2"],
+  "missing_sections": ["section1", "section2"],
+  "experience_match": {
+    "match": true,
+    "confidence": "high",
+    "message": "Resume indicates sufficient experience"
+  },
+  "education_match": {
+    "match": true,
+    "confidence": "high",
+    "message": "Education requirements met"
+  }
 }
 ```
+
+## Implementation Details
+
+This backend uses:
+- **spaCy**: For advanced NLP and entity recognition
+- **NLTK**: For text processing and analysis
+- **scikit-learn**: For text similarity calculations
+- **PyPDF2**: For PDF processing
+- **Flask**: For the web API interface
