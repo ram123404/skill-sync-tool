@@ -31,7 +31,7 @@ except:
     os.system("python -m spacy download en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 
-@app.route(route="analyze", auth_level=func.AuthLevel.Anonymous, methods=["POST"])
+@app.route(route="analyze", methods=["POST"])
 def analyze(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Resume analysis function processed a request.')
     
@@ -79,6 +79,7 @@ def analyze(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json"
         )
 
+# ... keep existing code (all the helper functions remain unchanged)
 def extract_text_from_pdf(pdf_file):
     """Extract text content from uploaded PDF file"""
     try:
