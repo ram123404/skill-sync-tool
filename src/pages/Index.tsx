@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
@@ -12,12 +11,12 @@ import Results, { ResultsData } from '@/components/Results';
 
 // API_URL will be different in development vs production
 const getApiUrl = () => {
-  // In production, use the API_URL from environment variable or the default Azure API URL
+  // On Azure Static Web Apps, API routes are automatically proxied via /api
   if (import.meta.env.PROD) {
-    return 'https://your-azure-function-app-name.azurewebsites.net/api';
+    return "/api";
   }
-  // In development, use localhost
-  return 'http://localhost:5000';
+  // In development, use localhost (assuming you run Azure Functions locally)
+  return "http://localhost:7071/api";
 };
 
 const Index = () => {
