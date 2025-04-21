@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
@@ -10,7 +10,15 @@ import FileUpload from '@/components/FileUpload';
 import JobDescription from '@/components/JobDescription';
 import Results, { ResultsData } from '@/components/Results';
 
-const API_URL = 'http://localhost:5000'; // Python backend URL
+// API_URL will be different in development vs production
+const getApiUrl = () => {
+  // In production, use the API_URL from environment variable or the default Azure API URL
+  if (import.meta.env.PROD) {
+    return 'https://your-azure-function-app-name.azurewebsites.net/api';
+  }
+  // In development, use localhost
+  return 'http://localhost:5000';
+};
 
 const Index = () => {
   const { toast } = useToast();
@@ -18,6 +26,11 @@ const Index = () => {
   const [jobDescription, setJobDescription] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState<ResultsData | null>(null);
+  const [apiUrl, setApiUrl] = useState(getApiUrl());
+
+  useEffect(() => {
+    setApiUrl(getApiUrl());
+  }, []);
 
   const handleFileChange = (file: File | null) => {
     setResume(file);
@@ -75,8 +88,8 @@ const Index = () => {
       }
       formData.append('jobDescription', jobDescription);
 
-      // Call the Python backend API
-      const response = await fetch(`${API_URL}/analyze`, {
+      // Call the backend API using the configured API URL
+      const response = await fetch(`${apiUrl}/analyze`, {
         method: 'POST',
         body: formData,
       });
@@ -93,6 +106,10 @@ const Index = () => {
         matched_keywords: data.matched_keywords || [],
         missing_keywords: data.missing_keywords || [],
         suggestions: data.suggestions || [],
+        match_score: data.match_score,
+        missing_sections: data.missing_sections,
+        experience_match: data.experience_match,
+        education_match: data.education_match,
       });
       
       toast({
